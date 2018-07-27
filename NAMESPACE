@@ -1,0 +1,4 @@
+## Export regular function names
+export(
+	draw_ring
+)

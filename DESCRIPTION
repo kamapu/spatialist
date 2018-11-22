@@ -2,18 +2,18 @@ Package: spatialist
 Version: 0.1.0.9001
 Encoding: UTF-8
 Title: Miscellaneous spatial functions
-Authors@R:
+Authors@R: 
 	person("Miguel", "Alvarez", email="kamapu78@gmail.com", role=c("aut", "cre"))
-Depends:
+Depends: 
     R(>= 3.0.0)
-Imports:
+Imports: 
     methods
-Suggests:
+Suggests: 
 	devtools,
     raster
 LazyData: true
 Description: A mingle-mangle of functions for spatial objects in R.
 License: GPL (>= 2)
-URL:
+URL: 
 	https://github.com/kamapu/spatialist
 BugReports: https://github.com/kamapu/spatialist/issues

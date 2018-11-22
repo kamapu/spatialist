@@ -1,15 +1,16 @@
 Package: spatialist
 Version: 0.1.0.9001
 Title: Miscellaneous Spatial Functions
-Authors@R: person("Miguel", "Alvarez", email="malvarez@uni-bonn.de", role=c("aut","cre"))
+Authors@R: person("Miguel", "Alvarez", email="malvarez@uni-bonn.de",
+	role=c("aut","cre"))
 Author: Miguel Alvarez [aut, cre]
 Maintainer: Miguel Alvarez <malvarez@uni-bonn.de>
 Depends: R(>= 3.0.0)
 Imports:
 	methods
 Suggests:
-    devtools,
-    raster
+	devtools,
+	raster
 Description:
 	A mingle-mangle of functions for spatial objects in R.
 License: GPL (>= 2)

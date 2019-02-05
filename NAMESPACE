@@ -1,4 +1,12 @@
+## Import functions from other packages
+importFrom(raster, extent)
+importFrom(sp, coordinates, "coordinates<-", proj4string, "proj4string<-", CRS,
+	Polygon, Polygons, SpatialPolygons, SpatialPolygonsDataFrame, spTransform)
+importFrom(stats, dist)
+
 ## Export regular function names
 export(
-	draw_ring
+	bbox_sp,
+	draw_ring,
+	pixel_dim
 )

@@ -10,7 +10,7 @@ spatial objects.
 bbox_sp(raster, geom="point")
 }
 \arguments{
-\item{raster}{An object of class \code{Raster*}.}
+\item{raster}{An object of class \code{Raster*} or \code{Extent}.}
 \item{geom}{Character value indicating the geometry of output (either point or
 polygon).}
 }

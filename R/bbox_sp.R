@@ -7,7 +7,7 @@ bbox_sp <- function(raster, geom="point") {
 	geom <- pmatch(geom, c("point", "polygon"))
 	if(!geom %in% c(1,2))
 		stop("Invalid value for argument 'geom'.")
-	ext <- extent(raster)
+	if(class(raster) != "Extent") ext <- extent(raster) else ext <- raster
 	# Extension as points
 	if(geom == 1) {
 		ext <- data.frame(fid=1:4, longitude=c(ext@xmin, ext@xmin, ext@xmax,

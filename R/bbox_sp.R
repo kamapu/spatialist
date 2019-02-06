@@ -25,7 +25,7 @@ bbox_sp <- function(raster, geom="point", proj4) {
 												ext@xmax), c(ext@ymin, ext@ymax,
 												ext@ymax, ext@ymin)))),
 				ID="bbox")
-		ext <- SpatialPolygons(list(ext), proj4string=CRS(proj4string(raster)))
+		ext <- SpatialPolygons(list(ext), proj4string=CRS(proj4))
 		ext <- SpatialPolygonsDataFrame(ext, data.frame(fid=1), match.ID=FALSE)
 	}
 	return(ext)

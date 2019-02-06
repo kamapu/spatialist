@@ -7,12 +7,14 @@ Bounding boxes of raster (class \code{Raster*}) objects will be exported as
 spatial objects.
 }
 \usage{
-bbox_sp(raster, geom="point")
+bbox_sp(raster, geom="point", proj4)
 }
 \arguments{
 \item{raster}{An object of class \code{Raster*} or \code{Extent}.}
 \item{geom}{Character value indicating the geometry of output (either point or
-polygon).}
+	polygon).}
+\item{proj4}{Character vector indicating the \code{proj4string} (Used only for
+	inputs of class \code{Extent}).}
 }
 \details{
 Some description will follow.

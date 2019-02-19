@@ -1,0 +1,14 @@
+language: R
+cache: packages
+sudo: required
+dist: trusty
+warnings_are_errors: false
+r_packages:
+  - raster
+  - rgdal
+  - sp
+addons:
+  apt:
+    packages:
+      - libgdal-dev
+      - libproj-dev

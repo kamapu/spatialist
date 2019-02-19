@@ -6,7 +6,11 @@ importFrom(stats, dist)
 
 ## Export regular function names
 export(
+	draw_ring
+)
+
+## Export methods
+exportMethods(
 	bbox_sp,
-	draw_ring,
 	pixel_dim
 )

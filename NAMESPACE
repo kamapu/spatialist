@@ -1,5 +1,5 @@
 ## Import functions from other packages
-importFrom(raster, extent)
+importFrom(raster, calc, cellStats, extent, overlay)
 importFrom(sp, coordinates, "coordinates<-", proj4string, "proj4string<-", CRS,
 	Polygon, Polygons, SpatialPolygons, SpatialPolygonsDataFrame, spTransform)
 importFrom(stats, dist)
@@ -12,5 +12,6 @@ export(
 ## Export methods
 exportMethods(
 	bbox_sp,
+	landforms,
 	pixel_dim
 )

@@ -1,15 +1,46 @@
-# TODO:   Extracting bounding boxes for raster layers
-# 
-# Author: Miguel Alvarez
-################################################################################
-
-# Generic function
+#' @name bbox_sp
+#' @rdname bbox_sp
+#' 
+#' @title Bounding boxes as spatial objects
+#' 
+#' @description 
+#' Bounding boxes of raster (class `Raster*`) objects will be converted either
+#' to [SpatialPointsDataFrame-class] or [SpatialPointsDataFrame-class].
+#' 
+#' This function extract the corners including the bounding box of the input
+#' raster or extension and writes either four spatial points or a rectangle as
+#' polygon.
+#' 
+#' @param raster An object of class `Raster*` or [Extent-class].
+#' @param geom Character value indicating the geometry of output (either point
+#'     or polygon).
+#' @param proj4 Character vector indicating the `proj4string` (required only
+#'     for inputs of class [Extent-class]).
+#' @param ... Further arguments passed among methods (not yet used).
+#' 
+#' @return Either a [SpatialPointsDataFrame-class] or a
+#' [SpatialPolygonsDataFrame-class] object.
+#' 
+#' @author Lukas Trübenbach and Miguel Alvarez (\email{kamapu78@@gmail.com}).
+#' 
+#' @examples
+#' require(raster)
+#' 
+#' r <- raster(system.file("external/test.grd", package="raster"))
+#' plot(r)
+#' plot(bbox_sp(r, "polygon"), border="darkgreen", lwd=3, add=TRUE)
+#' plot(bbox_sp(r, "point"), col="red", pch=16, cex=3, add=TRUE)
+#' 
+#' @exportMethod bbox_sp
+#' 
 setGeneric("bbox_sp",
 		function(raster, ...)
 			standardGeneric("bbox_sp")
 )
 
-# Method for class Extent
+#' @rdname bbox_sp
+#' @aliases bbox_sp,Extent-method
+#' 
 setMethod("bbox_sp", signature(raster="Extent"),
 		function(raster, proj4="", geom="point", ...) {
 			geom <- pmatch(geom, c("point", "polygon"))
@@ -41,19 +72,27 @@ setMethod("bbox_sp", signature(raster="Extent"),
 		}
 )
 
-# Method for class RasterLayer etc.
+#' @rdname bbox_sp
+#' @aliases bbox_sp,RasterLayer-method
+#' 
 setMethod("bbox_sp", signature(raster="RasterLayer"),
 		function(raster, geom="point", ...) {
 			return(bbox_sp(extent(raster), proj4string(raster), geom, ...))
 		}
 )
 
+#' @rdname bbox_sp
+#' @aliases bbox_sp,RasterStack-method
+#' 
 setMethod("bbox_sp", signature(raster="RasterStack"),
 		function(raster, geom="point", ...) {
 			return(bbox_sp(extent(raster), proj4string(raster), geom, ...))
 		}
 )
 
+#' @rdname bbox_sp
+#' @aliases bbox_sp,RasterBrick-method
+#' 
 setMethod("bbox_sp", signature(raster="RasterBrick"),
 		function(raster, geom="point", ...) {
 			return(bbox_sp(extent(raster), proj4string(raster), geom, ...))

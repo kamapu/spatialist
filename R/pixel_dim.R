@@ -1,16 +1,38 @@
-# TODO:   Estimate dimensions of pixels
-# 
-# Author: Miguel Alvarez
-################################################################################
-
-# Generic function
-setGeneric("pixel_dim",
-		function(raster, ...)
-			standardGeneric("pixel_dim")
-)
-
-# Hidden function
-px_dim <- function(raster, projected=FALSE) {
+#' @name pixel_dim
+#' 
+#' @title Estimating metric dimensions of pixels in raster object
+#' 
+#' @description 
+#' Pixel dimension in raster objects (class `Raster*`) in projected space.
+#' 
+#' For non projected rasters, the bounding boxes will be reprojected to UTM
+#' coordinates for the calculation of height (latitude) and width (longitude).
+#' For projected rasters, the calculation will be directly done in the units of
+#' the respective spacial reference system.
+#' 
+#' @param raster An object of class `Raster*`.
+#' @param projected Logical value indicating whether the coordinates of raster
+#'     input are projected or not.
+#' @param ... Further arguments passed among methods (Not yet used).
+#' 
+#' @return A named vector with the estimated height (latitude) and width
+#' (longitude) of pixels either in meters for non-projected rasters or in the
+#' own spacial units for projected ones.
+#' 
+#' @author Lukas Trübenbach and Miguel Alvarez (\email{kamapu78@@gmail.com}).
+#' 
+#' @examples
+#' require(raster)
+#' 
+#' r <- raster(system.file("external/test.grd", package="raster"))
+#' pixel_dim(r)
+#' 
+#' ## More appropriate for projected coordinates
+#' pixel_dim(r, projected=TRUE)
+#' 
+#' @export pixel_dim
+#' 
+pixel_dim <- function(raster, projected=FALSE) {
 	ext <- bbox_sp(raster)
 	if(!projected) {
 		ext <- spTransform(ext, CRS("+init=epsg:4326"))
@@ -30,16 +52,3 @@ px_dim <- function(raster, projected=FALSE) {
 	OUT <- OUT/dim(raster)[1:2]
 	return(OUT)
 }
-
-# Define method for RasterLayer etc.
-setMethod("pixel_dim", signature(raster="RasterLayer"),
-		function(raster, projected=FALSE, ...) px_dim(raster, projected)
-)
-
-setMethod("pixel_dim", signature(raster="RasterLayer"),
-		function(raster, projected=FALSE, ...) px_dim(raster, projected)
-)
-
-setMethod("pixel_dim", signature(raster="RasterLayer"),
-		function(raster, projected=FALSE, ...) px_dim(raster, projected)
-)

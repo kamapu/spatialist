@@ -1,15 +1,41 @@
-# TODO:   Classification of landforms after Weiss (2001)
-# 
-# Author: Miguel Alvarez
-################################################################################
-
-# Generic function
+#' @name landforms
+#' @rdname landforms
+#' 
+#' @title Classification of land forms
+#' 
+#' @description 
+#' Add description.
+#' 
+#' @details 
+#' Details.
+#' 
+#' @param small,large Raster layers with topographic position index at small
+#'     and large scale, respectively.
+#' @param mean_s,mean_l Reference mean value for small and large scale,
+#'     respectively.
+#' @param sd_s,sd_l Reference standard deviation for small and large scale,
+#'     respectively.
+#' @param ... Further arguments passed to [writeRaster()].
+#' 
+#' @return A raster.
+#' 
+#' @author Miguel Alvarez (\email{kamapu78@@gmail.com}).
+#' 
+#' @references Link to Weiss (2001)
+#' 
+#' @examples
+#' ## Add Example
+#' 
+#' @exportMethod landforms
+#' 
 setGeneric("landforms",
 		function(small, large, ...)
 			standardGeneric("landforms")
 )
 
-# Function for raster layers
+#' @rdname landforms
+#' @aliases landforms,RasterLayer,RasterLayer-method 
+#' 
 setMethod("landforms", signature(small="RasterLayer", large="RasterLayer"),
 		function(small, large, mean_s, mean_l, sd_s, sd_l, ...) {
 			if(missing(mean_s)) mean_s <- cellStats(small, "mean")

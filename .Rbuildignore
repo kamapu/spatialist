@@ -5,6 +5,7 @@
 ^\.project$
 ^\.travis.yml$
 ^codecov\.yml$
+^data-raw$
 ^README\.Rmd$
 ^README\.md$
 ^README\.html$

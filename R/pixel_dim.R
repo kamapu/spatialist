@@ -32,7 +32,7 @@
 #' 
 #' @export pixel_dim
 #' 
-pixel_dim <- function(raster, projected=FALSE) {
+pixel_dim <- function(raster, projected=FALSE, ...) {
 	ext <- bbox_sp(raster)
 	if(!projected) {
 		ext <- spTransform(ext, CRS("+init=epsg:4326"))

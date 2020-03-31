@@ -4,7 +4,7 @@
 \alias{pixel_dim}
 \title{Estimating metric dimensions of pixels in raster object}
 \usage{
-pixel_dim(raster, projected = FALSE)
+pixel_dim(raster, projected = FALSE, ...)
 }
 \arguments{
 \item{raster}{An object of class \verb{Raster*}.}

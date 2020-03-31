@@ -7,11 +7,19 @@
 \usage{
 erodil_raster(raster, ...)
 
-\S4method{erodil_raster}{RasterLayer}(raster, erosion = TRUE, dilation = TRUE, nt = 1, ...)
+\S4method{erodil_raster}{RasterLayer}(
+  raster,
+  erosion = TRUE,
+  dilation = TRUE,
+  erosion_first = TRUE,
+  nt = 1,
+  ...
+)
 }
 \arguments{
-\item{raster}{An object of class \linkS4class{RasterLayer} containing binary values
-(0 or 1).}
+\item{raster}{An object of class \linkS4class{RasterLayer} containing NA values.
+Note that as in the function \code{\link[=morphology]{morphology()}}, erosion and dilation is
+applied to non-NA values.}
 
 \item{...}{Further arguments passed to \code{\link[=raster]{raster()}}.}
 
@@ -21,13 +29,34 @@ not.}
 \item{dilation}{A logical value indicating whether the data will be dilated
 or not.}
 
+\item{erosion_first}{A logical value indicating whether erosion should be
+carried out before dilation or vice versa.}
+
 \item{nt}{Number of times to be processed (passed to \code{\link[=morphology]{morphology()}}).}
 }
 \value{
-A \linkS4class{RasterLayer} object.
+A \linkS4class{RasterLayer} object with value 1 for the processed features and NA
+for the background.
 }
 \description{
 This function apply \code{\link[=morphology]{morphology()}} to raster objects.
+}
+\examples{
+## Load installed rasterLayer
+require(raster)
+r <- raster(file.path(path.package("spatialist"), "binras.tif"))
+
+## Make only erosion or only dilation
+plot(stack(list(original=r,
+         eroded=erodil_raster(r, dilation=FALSE),
+			dilated=erodil_raster(r, erosion=FALSE))))
+
+## By default erosion will be done before dilation
+plot(stack(list(original=r,
+			eroded_first=erodil_raster(r),
+			dilated_first=erodil_raster(r, erosion_first=FALSE),
+			both=erodil_raster(erodil_raster(r, erosion_first=FALSE)))))
+
 }
 \author{
 Jan Blöthe and Miguel Alvarez (\email{kamapu78@gmail.com}).

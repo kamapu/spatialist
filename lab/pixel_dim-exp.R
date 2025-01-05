@@ -1,3 +1,4 @@
+library(spatialist)
 library(terra)
 library(tidyterra)
 library(ggplot2)
@@ -8,5 +9,4 @@ r <- rast(f)
 ggplot() +
     geom_spatraster(data = r)
 
-raster <- r
-extent <- ext(raster)
+pixel_dim(r)

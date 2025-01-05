@@ -2,12 +2,13 @@
 % Please edit documentation in R/landforms.R
 \name{landforms}
 \alias{landforms}
+\alias{landforms,SpatRaster,SpatRaster-method}
 \alias{landforms,RasterLayer,RasterLayer-method}
 \title{Classification of land forms}
 \usage{
 landforms(small, large, ...)
 
-\S4method{landforms}{RasterLayer,RasterLayer}(small, large, mean_s, mean_l, sd_s, sd_l, ...)
+\S4method{landforms}{SpatRaster,SpatRaster}(small, large, mean_s, mean_l, sd_s, sd_l, ...)
 }
 \arguments{
 \item{small, large}{Raster layers with topographic position index at small

@@ -27,7 +27,6 @@
 #' ## Add Example
 #'
 #' @exportMethod landforms
-#'
 setGeneric(
   "landforms",
   function(small, large, ...) {
@@ -37,44 +36,45 @@ setGeneric(
 
 #' @rdname landforms
 #' @aliases landforms,RasterLayer,RasterLayer-method
-#'
 setMethod(
-  "landforms", signature(small = "RasterLayer", large = "RasterLayer"),
+  "landforms", signature(small = "SpatRaster", large = "SpatRaster"),
   function(small, large, mean_s, mean_l, sd_s, sd_l, ...) {
-    if (missing(mean_s)) mean_s <- cellStats(small, "mean")
-    if (missing(mean_l)) mean_l <- cellStats(large, "mean")
-    if (missing(sd_s)) sd_s <- cellStats(small, "sd")
-    if (missing(sd_l)) sd_l <- cellStats(large, "sd")
+    # Parameters for cut levels
+    if (missing(mean_s)) mean_s <- global(small, "mean", na.rm = TRUE)
+    if (missing(mean_l)) mean_l <- global(large, "mean", na.rm = TRUE)
+    if (missing(sd_s)) sd_s <- global(small, "sd", na.rm = TRUE)
+    if (missing(sd_l)) sd_l <- global(large, "sd", na.rm = TRUE)
+    # Ranges of input data
+    range_s <- global(small, "range", na.rm = TRUE)
+    range_l <- global(large, "range", na.rm = TRUE)
     # Conditions
-    C1 <- calc(small, function(x) {
-      cut(x, c(
-        cellStats(small, "min"),
-        mean_s - sd_s, mean_s + sd_s,
-        cellStats(small, "max")
-      ),
-      right = TRUE, include.lowest = TRUE, labels = FALSE
+    C1 <- app(small, fun = function(x) {
+      cut(x, unlist(c(
+        range_s[1],
+        mean_s - sd_s, mean_s + sd_s, range_s[2]
+      )),
+      include.lowest = TRUE, right = TRUE, labels = FALSE
       )
     })
-    C2 <- calc(large, function(x) {
-      cut(x, c(
-        cellStats(large, "min"),
-        mean_l - sd_l, mean_l + sd_l,
-        cellStats(large, "max")
-      ),
-      right = TRUE, include.lowest = TRUE, labels = FALSE
+    C2 <- app(large, fun = function(x) {
+      cut(x, unlist(c(
+        range_l[1],
+        mean_l - sd_l, mean_l + sd_l, range_l[2]
+      )),
+      include.lowest = TRUE, right = TRUE, labels = FALSE
       )
     })
     # Classification
-    lf_classes <- overlay(C1, C2, fun = function(C1, C2) {
-      (C1 == 1 & C2 == 1) * 1 +
-        (C1 == 1 & C2 == 2) * 2 +
-        (C1 == 1 & C2 == 3) * 3 +
-        (C1 == 2 & C2 == 1) * 4 +
-        (C1 == 2 & C2 == 2) * 5 +
-        (C1 == 2 & C2 == 3) * 6 +
-        (C1 == 3 & C2 == 1) * 7 +
-        (C1 == 3 & C2 == 2) * 8 +
-        (C1 == 3 & C2 == 3) * 9
+    lf_classes <- app(x = c(C1, C2), fun = function(x) {
+      (x[1] == 1 & x[2] == 1) * 1 +
+        (x[1] == 1 & x[2] == 2) * 2 +
+        (x[1] == 1 & x[2] == 3) * 3 +
+        (x[1] == 2 & x[2] == 1) * 4 +
+        (x[1] == 2 & x[2] == 2) * 5 +
+        (x[1] == 2 & x[2] == 3) * 6 +
+        (x[1] == 3 & x[2] == 1) * 7 +
+        (x[1] == 3 & x[2] == 2) * 8 +
+        (x[1] == 3 & x[2] == 3) * 9
     }, ...)
     return(lf_classes)
   }

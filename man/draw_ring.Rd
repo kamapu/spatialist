@@ -42,17 +42,16 @@ B
 C <- draw_ring(0, 100)
 
 ## For squared rings, set squared=TRUE
-D <- draw_ring(0, 50, squared=TRUE)
+D <- draw_ring(0, 50, squared = TRUE)
 
 ## Now see them in plot
-library(raster)
+library(terra)
 
-par(mfrow=c(2,2))
-plot(as.raster(A))
-plot(as.raster(B))
-plot(as.raster(C))
-plot(as.raster(D))
-
+par(mfrow = c(2, 2))
+plot(rast(A))
+plot(rast(B))
+plot(rast(C))
+plot(rast(D))
 }
 \seealso{
 \code{\link[=focal]{focal()}}.

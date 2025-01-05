@@ -44,10 +44,10 @@ polygon.
 \examples{
 require(raster)
 
-r <- raster(system.file("external/test.grd", package="raster"))
+r <- raster(system.file("external/test.grd", package = "raster"))
 plot(r)
-plot(bbox_sp(r, "polygon"), border="darkgreen", lwd=3, add=TRUE)
-plot(bbox_sp(r, "point"), col="red", pch=16, cex=3, add=TRUE)
+plot(bbox_sp(r, "polygon"), border = "darkgreen", lwd = 3, add = TRUE)
+plot(bbox_sp(r, "point"), col = "red", pch = 16, cex = 3, add = TRUE)
 
 }
 \author{

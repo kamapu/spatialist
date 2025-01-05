@@ -47,15 +47,19 @@ require(raster)
 r <- raster(file.path(path.package("spatialist"), "binras.tif"))
 
 ## Make only erosion or only dilation
-plot(stack(list(original=r,
-         eroded=erodil_raster(r, dilation=FALSE),
-			dilated=erodil_raster(r, erosion=FALSE))))
+plot(stack(list(
+  original = r,
+  eroded = erodil_raster(r, dilation = FALSE),
+  dilated = erodil_raster(r, erosion = FALSE)
+)))
 
 ## By default erosion will be done before dilation
-plot(stack(list(original=r,
-			eroded_first=erodil_raster(r),
-			dilated_first=erodil_raster(r, erosion_first=FALSE),
-			both=erodil_raster(erodil_raster(r, erosion_first=FALSE)))))
+plot(stack(list(
+  original = r,
+  eroded_first = erodil_raster(r),
+  dilated_first = erodil_raster(r, erosion_first = FALSE),
+  both = erodil_raster(erodil_raster(r, erosion_first = FALSE))
+)))
 
 }
 \author{

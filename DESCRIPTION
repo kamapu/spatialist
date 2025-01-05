@@ -16,8 +16,8 @@ Imports:
     adehabitatMA,
     methods,
     raster,
-    rgdal,
-    sp
+    sp,
+    terra
 Suggests:
     devtools,
     rmarkdown,
@@ -28,4 +28,4 @@ License: GPL (>= 2)
 Roxygen: list(markdown = TRUE)
 URL: https://github.com/kamapu/spatialist
 BugReports: https://github.com/kamapu/spatialist/issues
-RoxygenNote: 7.0.2
+RoxygenNote: 7.3.2

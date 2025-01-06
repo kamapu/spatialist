@@ -2,13 +2,16 @@
 % Please edit documentation in R/erodil_raster.R
 \name{erodil_raster}
 \alias{erodil_raster}
-\alias{erodil_raster,RasterLayer-method}
+\alias{erodil_raster.SpatRaster}
+\alias{erodil_raster,SpatRaster-method}
 \title{Raster erosion and dilation}
 \usage{
 erodil_raster(raster, ...)
 
-\S4method{erodil_raster}{RasterLayer}(
+\method{erodil_raster}{SpatRaster}(
   raster,
+  width = c(3, 3),
+  type = "diamond",
   erosion = TRUE,
   dilation = TRUE,
   erosion_first = TRUE,
@@ -17,11 +20,16 @@ erodil_raster(raster, ...)
 )
 }
 \arguments{
-\item{raster}{An object of class \linkS4class{RasterLayer} containing NA values.
-Note that as in the function \code{\link[=morphology]{morphology()}}, erosion and dilation is
-applied to non-NA values.}
+\item{raster}{An object of class \linkS4class{SpatRaster} containing 1 and 0
+(or NAs) values.}
 
-\item{...}{Further arguments passed to \code{\link[=raster]{raster()}}.}
+\item{...}{Further arguments passed to \code{\link[=rast]{rast()}}.}
+
+\item{width}{An integer vector indicating the width and the heigth applied
+for the kernel. This is passed to \code{\link[=shapeKernel]{shapeKernel()}}.}
+
+\item{type}{A character value indicating the type of shape used for the
+kernel (see \code{\link[=shapeKernel]{shapeKernel()}})}
 
 \item{erosion}{A logical value indicating whether the data will be eroded or
 not.}
@@ -32,35 +40,17 @@ or not.}
 \item{erosion_first}{A logical value indicating whether erosion should be
 carried out before dilation or vice versa.}
 
-\item{nt}{Number of times to be processed (passed to \code{\link[=morphology]{morphology()}}).}
+\item{nt}{Number of times to be processed.}
 }
 \value{
-A \linkS4class{RasterLayer} object with value 1 for the processed features and NA
+A \linkS4class{SpatRaster} object with value 1 for the processed features and NA
 for the background.
 }
 \description{
-This function apply \code{\link[=morphology]{morphology()}} to raster objects.
-}
-\examples{
-## Load installed rasterLayer
-require(raster)
-r <- raster(file.path(path.package("spatialist"), "binras.tif"))
+Mixing erosion and dilation processes to clean binary images, getting rid of
+isolated pixels and little holes.
 
-## Make only erosion or only dilation
-plot(stack(list(
-  original = r,
-  eroded = erodil_raster(r, dilation = FALSE),
-  dilated = erodil_raster(r, erosion = FALSE)
-)))
-
-## By default erosion will be done before dilation
-plot(stack(list(
-  original = r,
-  eroded_first = erodil_raster(r),
-  dilated_first = erodil_raster(r, erosion_first = FALSE),
-  both = erodil_raster(erodil_raster(r, erosion_first = FALSE))
-)))
-
+For the single steps, see \code{\link[=erode]{erode()}}.
 }
 \author{
 Jan Blöthe and Miguel Alvarez (\email{kamapu78@gmail.com}).

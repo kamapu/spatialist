@@ -4,81 +4,81 @@
 #' @title Raster erosion and dilation
 #'
 #' @description
-#' This function apply [morphology()] to raster objects.
+#' Mixing erosion and dilation processes to clean binary images, getting rid of
+#' isolated pixels and little holes.
 #'
-#' @param raster An object of class [RasterLayer-class] containing NA values.
-#'     Note that as in the function [morphology()], erosion and dilation is
-#'     applied to non-NA values.
+#' For the single steps, see [erode()].
+#'
+#' @param raster An object of class [SpatRaster-class] containing 1 and 0
+#'     (or NAs) values.
+#' @param width An integer vector indicating the width and the heigth applied
+#'     for the kernel. This is passed to [shapeKernel()].
+#' @param type A character value indicating the type of shape used for the
+#'     kernel (see [shapeKernel()])
 #' @param erosion A logical value indicating whether the data will be eroded or
 #'     not.
 #' @param dilation A logical value indicating whether the data will be dilated
 #'     or not.
 #' @param erosion_first A logical value indicating whether erosion should be
 #'     carried out before dilation or vice versa.
-#' @param nt Number of times to be processed (passed to [morphology()]).
-#' @param ... Further arguments passed to [raster()].
+#' @param nt Number of times to be processed.
+#' @param ... Further arguments passed to [rast()].
 #'
 #' @return
-#' A [RasterLayer-class] object with value 1 for the processed features and NA
+#' A [SpatRaster-class] object with value 1 for the processed features and NA
 #' for the background.
 #'
 #' @author Jan Blöthe and Miguel Alvarez (\email{kamapu78@@gmail.com}).
 #'
-#' @examples
-#' ## Load installed rasterLayer
-#' require(raster)
-#' r <- raster(file.path(path.package("spatialist"), "binras.tif"))
-#'
-#' ## Make only erosion or only dilation
-#' plot(stack(list(
-#'   original = r,
-#'   eroded = erodil_raster(r, dilation = FALSE),
-#'   dilated = erodil_raster(r, erosion = FALSE)
-#' )))
-#'
-#' ## By default erosion will be done before dilation
-#' plot(stack(list(
-#'   original = r,
-#'   eroded_first = erodil_raster(r),
-#'   dilated_first = erodil_raster(r, erosion_first = FALSE),
-#'   both = erodil_raster(erodil_raster(r, erosion_first = FALSE))
-#' )))
-#'
-#' @exportMethod erodil_raster
-#'
-setGeneric(
-  "erodil_raster",
-  function(raster, ...) {
-    standardGeneric("erodil_raster")
-  }
-)
+#' @export
+erodil_raster <- function(raster, ...) {
+  UseMethod("erodil_raster", raster)
+}
 
 #' @rdname erodil_raster
-#' @aliases erodil_raster,RasterLayer-method
-#'
-setMethod(
-  "erodil_raster", signature(raster = "RasterLayer"),
-  function(raster, erosion = TRUE, dilation = TRUE, erosion_first = TRUE, nt = 1,
-           ...) {
-    # convert raster to "SpatialPixelsDataFrame"
-    tmp_SPDF <- as(raster, "SpatialPixelsDataFrame")
-    # Apply morphology
-    if (erosion_first) {
-      if (erosion) {
-        tmp_SPDF <- morphology(tmp_SPDF, operation = "erode", nt = nt)
-      }
-      if (dilation) {
-        tmp_SPDF <- morphology(tmp_SPDF, operation = "dilate", nt = nt)
-      }
-    } else {
-      if (dilation) {
-        tmp_SPDF <- morphology(tmp_SPDF, operation = "dilate", nt = nt)
-      }
-      if (erosion) {
-        tmp_SPDF <- morphology(tmp_SPDF, operation = "erode", nt = nt)
+#' @aliases erodil_raster,SpatRaster-method
+#' @method erodil_raster SpatRaster
+#' @export
+erodil_raster.SpatRaster <- function(
+    raster, width = c(3, 3), type = "diamond",
+    erosion = TRUE, dilation = TRUE, erosion_first = TRUE, nt = 1, ...) {
+  # shape kernel
+  kernel <- shapeKernel(width = width, type = type)
+  # extract crs and extent
+  crs <- crs(raster)
+  extent <- ext(raster)
+  # convert to binary array
+  if (dim(raster)[3] > 1) {
+    warning("Only the first layer in 'raster' will be processed.")
+    raster <- raster[[1]]
+  }
+  raster <- as.array(raster)
+  raster[is.na(raster)] <- 0
+  raster[raster != 0] <- 1
+  # Apply morphology
+  if (erosion_first) {
+    if (erosion) {
+      for (i in 1:nt) {
+        raster <- erode(raster, kernel)
       }
     }
-    # convert back to rasterLayer
-    return(raster(tmp_SPDF, layer = 1, values = TRUE, ...))
+    if (dilation) {
+      for (i in 1:nt) {
+        raster <- dilate(raster, kernel)
+      }
+    }
+  } else {
+    if (dilation) {
+      for (i in 1:nt) {
+        raster <- dilate(raster, kernel)
+      }
+    }
+    if (erosion) {
+      for (i in 1:nt) {
+        raster <- erode(raster, kernel)
+      }
+    }
   }
-)
+  # convert back to spatraster
+  return(rast(raster, crs = crs, extent = extent, ...))
+}

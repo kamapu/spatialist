@@ -22,7 +22,7 @@
 #' @param erosion_first A logical value indicating whether erosion should be
 #'     carried out before dilation or vice versa.
 #' @param nt Number of times to be processed.
-#' @param ... Further arguments passed to [rast()].
+#' @param ... Further arguments passed to [shapeKernel()].
 #'
 #' @return
 #' A [SpatRaster-class] object with value 1 for the processed features and 0
@@ -45,7 +45,7 @@ erodil_raster.SpatRaster <- function(
     raster, width = c(3, 3), type = "diamond",
     erosion = TRUE, dilation = TRUE, erosion_first = TRUE, nt = 1, ...) {
   # shape kernel
-  kernel <- shapeKernel(width = width, type = type)
+  kernel <- shapeKernel(width = width, type = type, ...)
   # extract crs and extent
   crs <- crs(raster)
   extent <- ext(raster)
@@ -84,5 +84,5 @@ erodil_raster.SpatRaster <- function(
   # convert back to spatraster
   raster <- as.factor(rast(raster, crs = crs, extent = extent))
   coltab(raster) <- data.frame(value = c(0, 1), col = c("white", "black"))
-  return()
+  return(raster)
 }

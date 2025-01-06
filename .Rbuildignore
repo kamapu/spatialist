@@ -1,11 +1,11 @@
-^\.dbeaver$
 ^\.git$
 ^\.settings$
 ^\.gitignore$
 ^\.project$
-^\.travis.yml$
-^codecov\.yml$
+^build-pkg$
 ^data-raw$
+^examples$
+^lab$
 ^README\.Rmd$
 ^README\.md$
 ^README\.html$

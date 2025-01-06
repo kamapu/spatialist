@@ -1,8 +1,7 @@
-#' @importFrom raster calc cellStats extent overlay raster res res<-
-#' @importFrom sp coordinates coordinates<- proj4string proj4string<- CRS
-#'     Polygon Polygons SpatialPolygons SpatialPolygonsDataFrame spTransform
-#' @importFrom adehabitatMA morphology
+#' @importFrom methods exportMethods
+#' @importFrom mmand dilate erode shapeKernel
 #' @importFrom stats dist
-#' @importFrom methods as
-#' 
+#' @importFrom terra app as.array as.factor c coltab<- crs ext global project
+#'      rast
+#' @importClassesFrom terra SpatRaster
 NULL

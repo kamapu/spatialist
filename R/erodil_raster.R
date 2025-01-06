@@ -25,8 +25,10 @@
 #' @param ... Further arguments passed to [rast()].
 #'
 #' @return
-#' A [SpatRaster-class] object with value 1 for the processed features and NA
+#' A [SpatRaster-class] object with value 1 for the processed features and 0
 #' for the background.
+#' The output is already factorized and includes a color table for the two
+#' categories (white and black).
 #'
 #' @author Jan Blöthe and Miguel Alvarez (\email{kamapu78@@gmail.com}).
 #'
@@ -80,5 +82,7 @@ erodil_raster.SpatRaster <- function(
     }
   }
   # convert back to spatraster
-  return(rast(raster, crs = crs, extent = extent, ...))
+  raster <- as.factor(rast(raster, crs = crs, extent = extent))
+  coltab(raster) <- data.frame(value = c(0, 1), col = c("white", "black"))
+  return()
 }

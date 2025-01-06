@@ -43,8 +43,10 @@ carried out before dilation or vice versa.}
 \item{nt}{Number of times to be processed.}
 }
 \value{
-A \linkS4class{SpatRaster} object with value 1 for the processed features and NA
+A \linkS4class{SpatRaster} object with value 1 for the processed features and 0
 for the background.
+The output is already factorized and includes a color table for the two
+categories (white and black).
 }
 \description{
 Mixing erosion and dilation processes to clean binary images, getting rid of

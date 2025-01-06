@@ -29,6 +29,6 @@ r2 <- rast(c(
   eroded_first = erodil_raster(r),
   dilated_first = erodil_raster(r, erosion_first = FALSE),
   both = erodil_raster(erodil_raster(r, erosion_first = FALSE))
-)
+))
 
 ggplot() + geom_spatraster(data = r2) + facet_wrap(~lyr)

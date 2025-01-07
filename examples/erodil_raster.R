@@ -3,7 +3,11 @@ require(terra)
 require(ggplot2)
 require(tidyterra)
 
+# Import and prepare data
 r <- rast(file.path(path.package("spatialist"), "binras.tif"))
+r[is.na(r)] <- 0
+r <- as.factor(r)
+coltab(r) <- data.frame(value = c(0, 1), col = c("white", "black"))
 
 ## Make only erosion or only dilation
 r2 <- rast(c(

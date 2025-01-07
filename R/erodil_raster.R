@@ -30,7 +30,9 @@
 #' The output is already factorized and includes a color table for the two
 #' categories (white and black).
 #'
-#' @author Jan Blöthe and Miguel Alvarez (\email{kamapu78@@gmail.com}).
+#' @example examples/erodil_raster.R
+#'
+#' @author Jan Blöthe and Miguel Alvarez (\email{kamapu@@posteo.de}).
 #'
 #' @export
 erodil_raster <- function(raster, ...) {

@@ -1,5 +1,5 @@
 Package: spatialist
-Version: 0.1.1
+Version: 0.1.2
 Encoding: UTF-8
 Title: Miscellaneous Spatial Functions
 Authors@R: c(
@@ -13,7 +13,6 @@ Authors@R: c(
 Depends:
     R(>= 3.0.0)
 Imports:
-    methods,
     mmand,
     terra
 Suggests:

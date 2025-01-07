@@ -32,6 +32,7 @@ document()
 Folder = "build-pkg"
 pkg_loc <- build(path = Folder, args = "--resave-data")
 check_built(path = pkg_loc)
+# install()
 
 # Report coverage
 report()

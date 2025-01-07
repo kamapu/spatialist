@@ -3,7 +3,17 @@ library(terra)
 library(ggplot2)
 library(tidyterra)
 
-r <- raster <- rast(file.path("inst", "binras.tif"))
+r <- raster <- rast(file.path("inst", "binras.tif"))r
+
+r[is.na(r)] <- 0
+r <- classify(r, c(0, 1), include.lowest = TRUE)
+coltab(r) <- data.frame(value = c(0, 1), col = c("white", "black"))
+
+ggplot() + geom_spatraster(data = r)
+
+
+
+raster <- 
 width = c(3, 3)
 type = "diamond"
 erosion = TRUE

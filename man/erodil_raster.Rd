@@ -20,16 +20,16 @@ erodil_raster(raster, ...)
 )
 }
 \arguments{
-\item{raster}{An object of class \linkS4class{SpatRaster} containing 1 and 0
+\item{raster}{An object of class \link[terra:SpatRaster-class]{terra::SpatRaster} containing 1 and 0
 (or NAs) values.}
 
-\item{...}{Further arguments passed to \code{\link[=shapeKernel]{shapeKernel()}}.}
+\item{...}{Further arguments passed to \code{\link[mmand:kernels]{mmand::shapeKernel()}}.}
 
 \item{width}{An integer vector indicating the width and the heigth applied
-for the kernel. This is passed to \code{\link[=shapeKernel]{shapeKernel()}}.}
+for the kernel. This is passed to \code{\link[mmand:kernels]{mmand::shapeKernel()}}.}
 
 \item{type}{A character value indicating the type of shape used for the
-kernel (see \code{\link[=shapeKernel]{shapeKernel()}})}
+kernel (see \code{\link[mmand:kernels]{mmand::shapeKernel()}})}
 
 \item{erosion}{A logical value indicating whether the data will be eroded or
 not.}
@@ -43,7 +43,7 @@ carried out before dilation or vice versa.}
 \item{nt}{Number of times to be processed.}
 }
 \value{
-A \linkS4class{SpatRaster} object with value 1 for the processed features and 0
+A \link[terra:SpatRaster-class]{terra::SpatRaster} object with value 1 for the processed features and 0
 for the background.
 The output is already factorized and includes a color table for the two
 categories (white and black).
@@ -52,7 +52,7 @@ categories (white and black).
 Mixing erosion and dilation processes to clean binary images, getting rid of
 isolated pixels and little holes.
 
-For the single steps, see \code{\link[=erode]{erode()}}.
+For the single steps, see \code{\link[mmand:morphology]{mmand::erode()}}.
 }
 \examples{
 ## Load installed rasterLayer

@@ -14,7 +14,7 @@ landforms(small, large, ...)
 \item{small, large}{Raster layers with topographic position index at small
 and large scale, respectively.}
 
-\item{...}{Further arguments passed to \code{\link[=writeRaster]{writeRaster()}}.}
+\item{...}{Further arguments passed to \code{\link[terra:writeRaster]{terra::writeRaster()}}.}
 
 \item{mean_s, mean_l}{Reference mean value for small and large scale,
 respectively.}
@@ -37,7 +37,4 @@ Details.
 }
 \references{
 Link to Weiss (2001)
-}
-\author{
-Miguel Alvarez (\email{kamapu78@gmail.com}).
 }

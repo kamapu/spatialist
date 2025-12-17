@@ -16,14 +16,14 @@ draw_ring(inner, outer, squared = FALSE)
 \value{
 A square matrix of dimensions \code{outer*2 + 1} containing values 0
 and 1 (1 for cells inside of the ring). Remember that the function
-\code{\link[=focal]{focal()}} will calculate by default the sum of the cells inside the ring
+\code{\link[terra:focal]{terra::focal()}} will calculate by default the sum of the cells inside the ring
 when provided a matrix as window.
 Thus you may change the values 1 by their relative weight in order to get
 the mean value as output (i.e. \code{ring <- ring/sum(ring)}).
 }
 \description{
 This function was written to produce rings to be used as moving windows in
-the function \code{\link[=focal]{focal()}}.
+the function \code{\link[terra:focal]{terra::focal()}}.
 Such rings are required for instance to calculate the topographic position
 index (TPI) at variable scales according to Weiss (2001,
 \url{http://www.jennessent.com/downloads/tpi-poster-tnc_18x22.pdf}). Values
@@ -54,7 +54,7 @@ plot(rast(C))
 plot(rast(D))
 }
 \seealso{
-\code{\link[=focal]{focal()}}.
+\code{\link[terra:focal]{terra::focal()}}.
 }
 \author{
 Miguel Alvarez \email{kamapu78@gmail.com}

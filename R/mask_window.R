@@ -27,7 +27,7 @@
 #'
 #' @seealso [draw_ring()].
 #'
-# #' @example examples/mask_window.R
+#' @example examples/mask_window.R
 #'
 #' @export
 mask_window <- function(window, option = "top", dim = c(5, 5)) {
@@ -135,22 +135,3 @@ mask_window <- function(window, option = "top", dim = c(5, 5)) {
   }
   return(win)
 }
-
-
-## Examples and tests
-
-# mask_window()
-# mask_window(option = "bottom")
-# mask_window(option = "left")
-# mask_window(option = "right")
-# mask_window(option = "topleft")
-# mask_window(option = "topright")
-# mask_window(option = "bottomleft")
-# mask_window(option = "bottomright")
-
-
-# w <- matrix(rep(2, 7*7), ncol = 7)
-
-# mask_window(option = "right", window = w)
-
-# dim(w)

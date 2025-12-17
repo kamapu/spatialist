@@ -1,3 +1,4 @@
+#' @import methods
 #' @importFrom mmand dilate erode shapeKernel
 #' @importFrom stats dist
 #' @importFrom terra app coltab<- crs ext global project rast

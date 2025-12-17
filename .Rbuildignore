@@ -1,5 +1,4 @@
 ^\.git$
-^\.settings$
 ^\.gitignore$
 ^\.project$
 ^build-pkg$

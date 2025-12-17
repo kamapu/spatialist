@@ -49,5 +49,7 @@ draw_ring <- function(inner, outer, squared = FALSE) {
     Dist <- sqrt(((outer + 1) - r_ind)^2 + ((outer + 1) - c_ind)^2)
     win <- Dist <= outer & Dist >= inner
   }
-  return(matrix(as.numeric(win), ncol = ncol(win), nrow = nrow(win)))
+  win[win == 0] <- NA
+  win <- matrix(as.numeric(win), ncol = ncol(win), nrow = nrow(win))
+  return(win)
 }

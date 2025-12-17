@@ -19,8 +19,6 @@
 #'
 #' @return A raster.
 #'
-#' @author Miguel Alvarez (\email{kamapu78@@gmail.com}).
-#'
 #' @references Link to Weiss (2001)
 #'
 #' @examples

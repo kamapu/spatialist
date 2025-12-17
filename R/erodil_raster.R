@@ -44,8 +44,9 @@ erodil_raster <- function(raster, ...) {
 #' @method erodil_raster SpatRaster
 #' @export
 erodil_raster.SpatRaster <- function(
-    raster, width = c(3, 3), type = "diamond",
-    erosion = TRUE, dilation = TRUE, erosion_first = TRUE, nt = 1, ...) {
+  raster, width = c(3, 3), type = "diamond",
+  erosion = TRUE, dilation = TRUE, erosion_first = TRUE, nt = 1, ...
+) {
   # shape kernel
   kernel <- shapeKernel(width = width, type = type, ...)
   # extract crs and extent

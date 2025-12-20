@@ -14,6 +14,7 @@
 #' @param inner Inner annulus in pixel (cell) number.
 #' @param outer Outer annulus in pixel (cell) number.
 #' @param squared Logical value, whether the ring should be squared or round.
+#' @param nodata A value used to set masked cell. Default value is `NA`.
 #'
 #' @return A square matrix of dimensions `outer*2 + 1` containing values 0
 #' and 1 (1 for cells inside of the ring). Remember that the function
@@ -29,7 +30,7 @@
 #' @example examples/draw_ring.R
 #'
 #' @export
-draw_ring <- function(inner, outer, squared = FALSE) {
+draw_ring <- function(inner, outer, squared = FALSE, nodata = NA) {
   if (inner > outer - 1) {
     stop("'outer' should be higher than 'inner'")
   }
@@ -49,7 +50,7 @@ draw_ring <- function(inner, outer, squared = FALSE) {
     Dist <- sqrt(((outer + 1) - r_ind)^2 + ((outer + 1) - c_ind)^2)
     win <- Dist <= outer & Dist >= inner
   }
-  win[win == 0] <- NA
+  win[win == 0] <- nodata
   win <- matrix(as.numeric(win), ncol = ncol(win), nrow = nrow(win))
   return(win)
 }

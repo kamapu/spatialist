@@ -18,6 +18,7 @@ Imports:
     terra
 Suggests:
     ggplot2,
+    testthat,
     tidyterra
 LazyData: true
 Description: A mingle-mangle of functions for spatial objects in R.

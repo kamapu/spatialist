@@ -4,7 +4,7 @@
 \alias{mask_window}
 \title{Extract portions of windows}
 \usage{
-mask_window(window, option = "top", dim = c(5, 5))
+mask_window(window, option = "top", dim = c(5, 5), nodata)
 }
 \arguments{
 \item{window}{A matrix including a window to be masked, for instance a window generated
@@ -18,6 +18,8 @@ alternatives are "top", "bottom", "left", "right", "topleft", "topright",
 (number of rows), and the second value corresponds to the width (number of
 columns). Only odd values are accepted. If a 'window' is provided, the dimensions
 of this window will be used and this argument will be ignored.}
+
+\item{nodata}{A value used to set masked cell. Default value is \code{NA}.}
 }
 \value{
 If window is not provided, a matrix with the specified dimentions and values 1 and

@@ -4,7 +4,7 @@
 \alias{draw_ring}
 \title{Ring matrix for moving window}
 \usage{
-draw_ring(inner, outer, squared = FALSE)
+draw_ring(inner, outer, squared = FALSE, nodata = NA)
 }
 \arguments{
 \item{inner}{Inner annulus in pixel (cell) number.}
@@ -12,6 +12,8 @@ draw_ring(inner, outer, squared = FALSE)
 \item{outer}{Outer annulus in pixel (cell) number.}
 
 \item{squared}{Logical value, whether the ring should be squared or round.}
+
+\item{nodata}{A value used to set masked cell. Default value is \code{NA}.}
 }
 \value{
 A square matrix of dimensions \code{outer*2 + 1} containing values 0

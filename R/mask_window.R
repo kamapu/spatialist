@@ -16,6 +16,7 @@
 #'     (number of rows), and the second value corresponds to the width (number of
 #'     columns). Only odd values are accepted. If a 'window' is provided, the dimensions
 #'     of this window will be used and this argument will be ignored.
+#' @param nodata A value used to set masked cell. Default value is `NA`.
 #'
 #' @return
 #' If window is not provided, a matrix with the specified dimentions and values 1 and
@@ -30,7 +31,7 @@
 #' @example examples/mask_window.R
 #'
 #' @export
-mask_window <- function(window, option = "top", dim = c(5, 5)) {
+mask_window <- function(window, option = "top", dim = c(5, 5), nodata) {
   if (!missing(window)) {
     dim <- dim(window)
   }
@@ -82,7 +83,9 @@ mask_window <- function(window, option = "top", dim = c(5, 5)) {
   if (option == 5) {
     win <- rbind(
       cbind(
-        matrix(rep(1, times = floor(dim[1] / 2) * floor(dim[2] / 2)), ncol = floor(dim[2] / 2)),
+        matrix(rep(1, times = floor(dim[1] / 2) * floor(dim[2] / 2)),
+          ncol = floor(dim[2] / 2)
+        ),
         matrix(rep(NA, times = floor(dim[1] / 2) * ceiling(dim[2] / 2)),
           ncol = ceiling(dim[2] / 2)
         )
@@ -108,7 +111,9 @@ mask_window <- function(window, option = "top", dim = c(5, 5)) {
     win <- rbind(
       matrix(rep(NA, times = ceiling(dim[1] / 2) * dim[2]), ncol = dim[2]),
       cbind(
-        matrix(rep(1, times = floor(dim[1] / 2) * floor(dim[2] / 2)), ncol = floor(dim[2] / 2)),
+        matrix(rep(1, times = floor(dim[1] / 2) * floor(dim[2] / 2)),
+          ncol = floor(dim[2] / 2)
+        ),
         matrix(rep(NA, times = floor(dim[1] / 2) * ceiling(dim[2] / 2)),
           ncol = ceiling(dim[2] / 2)
         )
@@ -132,6 +137,9 @@ mask_window <- function(window, option = "top", dim = c(5, 5)) {
   # Process window
   if (!missing(window)) {
     win <- window * win
+  }
+  if (!missing(nodata)) {
+    win[is.na(win)] <- nodata
   }
   return(win)
 }
